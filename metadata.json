@@ -1,0 +1,11 @@
+{
+  "name": "AI Calorie Tracker",
+  "description": "Snap a photo of your food to instantly get calorie counts and nutritional breakdowns powered by Gemini AI.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "AI Vision",
+    "Nutrition Tracking"
+  ]
+}

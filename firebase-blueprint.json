@@ -1,0 +1,146 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User settings and profile",
+      "type": "object",
+      "properties": {
+        "dailyGoal": {
+          "type": "number",
+          "description": "Daily calorie goal"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "waterGoal": {
+          "type": "number"
+        },
+        "waterIntake": {
+          "type": "number"
+        },
+        "lastResetDate": {
+          "type": "string"
+        },
+        "notifiedToday": {
+          "type": "boolean"
+        },
+        "waterRemindersEnabled": {
+          "type": "boolean"
+        },
+        "reminderInterval": {
+          "type": "number"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["dark", "light"]
+        },
+        "breakfastReminder": { "type": "string" },
+        "lunchReminder": { "type": "string" },
+        "dinnerReminder": { "type": "string" },
+        "mealRemindersEnabled": { "type": "boolean" },
+        "firstUsedTimestamp": { "type": "number" },
+        "hasRated": { "type": "boolean" },
+        "targetWeight": { "type": "number" }
+      },
+      "required": ["dailyGoal"]
+    },
+    "WeightEntry": {
+      "title": "Weight Entry",
+      "description": "Daily weight log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "weight": { "type": "number" },
+        "targetWeight": { "type": "number" },
+        "date": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["userId", "weight", "date", "timestamp"]
+    },
+    "Meal": {
+      "title": "Meal",
+      "description": "A logged meal with nutritional data",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID of the user who logged the meal"
+        },
+        "foodName": {
+          "type": "string"
+        },
+        "calories": {
+          "type": "number"
+        },
+        "protein": {
+          "type": "number"
+        },
+        "carbs": {
+          "type": "number"
+        },
+        "fat": {
+          "type": "number"
+        },
+        "fiber": {
+          "type": "number"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Unix timestamp in ms"
+        },
+        "date": {
+          "type": "string",
+          "description": "YYYY-MM-DD format for daily tracking"
+        },
+        "estimatedPortion": {
+          "type": "string"
+        },
+        "portionFactor": {
+          "type": "number"
+        }
+      },
+      "required": ["userId", "foodName", "calories", "timestamp", "date"]
+    },
+    "AIFeedback": {
+      "title": "AI Feedback",
+      "description": "User feedback on AI nutrition accuracy",
+      "type": "object",
+      "properties": {
+        "mealId": { "type": "string" },
+        "foodName": { "type": "string" },
+        "originalCalories": { "type": "number" },
+        "correctedCalories": { "type": "number" },
+        "correctedProtein": { "type": "number" },
+        "correctedCarbs": { "type": "number" },
+        "correctedFat": { "type": "number" },
+        "isAccurate": { "type": "boolean" },
+        "timestamp": { "type": "number" },
+        "userId": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["mealId", "foodName", "originalCalories", "isAccurate", "timestamp", "userId"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User specific settings"
+    },
+    "meals/{mealId}": {
+      "schema": "Meal",
+      "description": "Collection of all meals logged by users"
+    },
+    "feedback/{feedbackId}": {
+      "schema": "AIFeedback",
+      "description": "User corrections and feedback on AI data"
+    },
+    "weightHistory/{weightId}": {
+      "schema": "WeightEntry",
+      "description": "Daily weight entries for users"
+    }
+  }
+}
